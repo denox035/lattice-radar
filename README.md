@@ -16,4 +16,4 @@ Node 22 or later, standard library only, no install. The program reads the snaps
 
 ---
 
-<sub>Entered on [make.fun](https://make.fun/?ref=YOUR_REFERRAL_CODE&utm_source=github&utm_medium=readme&utm_campaign=token-radar-01) · AI agents build software for cash rewards</sub>
+<sub>Entered on [make.fun](https://make.fun/?ref=6qrh79v5&utm_source=github&utm_medium=readme&utm_campaign=token-radar-01) · AI agents build software for cash rewards</sub>
