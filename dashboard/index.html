@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LATTICE — Token Launch Radar</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="mark">▦</span> LATTICE <span class="sub">Token Launch Radar</span></div>
+  <div class="snap" id="snapLine">Sealed snapshot · loading…</div>
+</header>
+
+<section class="model" id="modelStrip">
+  <strong>How a row is valued.</strong>
+  <span id="modelText">Implied value = TVL × the peer multiple of its category, × a growth factor, × a maturity factor. The peer multiple is the median market-cap-to-TVL ratio of the live protocols in that category, shrunk toward the market median where the category has few live members.</span>
+</section>
+
+<section class="controls" id="controls">
+  <input id="q" type="search" placeholder="Search name or slug…" aria-label="Search">
+  <select id="cat" aria-label="Category"><option value="">All categories</option></select>
+  <select id="chain" aria-label="Chain"><option value="">All chains</option></select>
+  <select id="scope" aria-label="Scope">
+    <option value="all">All 226 rows</option>
+    <option value="watchlist">Watchlist only</option>
+    <option value="early">Early radar only</option>
+  </select>
+  <select id="sort" aria-label="Sort by">
+    <option value="rank">Sort: rank</option>
+    <option value="tvl">Sort: TVL</option>
+    <option value="change">Sort: 7-day change</option>
+    <option value="age">Sort: age</option>
+    <option value="implied">Sort: implied value</option>
+  </select>
+</section>
+
+<section class="stats" id="stats"></section>
+
+<main>
+  <table id="board" aria-label="Ranked board">
+    <thead><tr>
+      <th data-k="rank">#</th><th data-k="name">Protocol</th><th data-k="category">Category</th>
+      <th>Chains</th><th data-k="tvl">TVL</th><th data-k="change">7d</th><th data-k="age">Age</th>
+      <th data-k="implied">Implied value</th><th>Confidence</th>
+    </tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <p class="hint" id="countLine"></p>
+</main>
+
+<section class="detail" id="detail" hidden></section>
+
+<section class="live" id="liveSec">
+  <h2>The market's own prices</h2>
+  <p>Protocols whose token already trades. They are not board rows: their market caps are the evidence the peer multiples are calibrated from. The table below shows the 24 largest by market cap.</p>
+  <table id="liveTable" aria-label="Live-token protocols">
+    <thead><tr><th>Protocol</th><th>Category</th><th>TVL</th><th>Market cap</th><th>MCap / TVL</th></tr></thead>
+    <tbody id="liveRows"></tbody>
+  </table>
+  <h3>Peer multiples by category</h3>
+  <table id="calTable" aria-label="Calibration by category">
+    <thead><tr><th>Category</th><th>Live peers</th><th>Median MCap / TVL</th><th>Multiple used</th></tr></thead>
+    <tbody id="calRows"></tbody>
+  </table>
+</section>
+
+<section class="method" id="methodSec">
+  <h2>Method, in full</h2>
+  <ol>
+    <li><strong>Pre-token means what the record says.</strong> A protocol is on the board when DefiLlama records no token for it: no market cap, no CoinGecko id, no symbol. That is a record, not a promise — a protocol on the list may still hold a token its record does not carry.</li>
+    <li><strong>Peer multiple.</strong> For each category, the median market-cap-to-TVL ratio of its live protocols, shrunk toward the global median with a prior of 8 peers, clamped to 0.02–1.20. Categories with no live member use the global median.</li>
+    <li><strong>Growth.</strong> The 7-day TVL change, clamped to −50…+100%, moves the value by 0.35× the change: a protocol up 100% in a week is worth 1.35× its base, one down 50% is worth 0.83×.</li>
+    <li><strong>Maturity.</strong> Age runs 0.70 for a newborn to 1.00 at three years; a protocol with no listing date takes the snapshot's median age.</li>
+    <li><strong>What this is not.</strong> The board does not predict whether or when a token is issued. Implied value is what the token would be worth if the protocol's record stayed as it is. Farm plans are generic steps from the protocol's category, chains, size and age — never a guarantee of an airdrop.</li>
+  </ol>
+</section>
+
+<footer class="foot" id="footLine"></footer>
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
